@@ -3,9 +3,6 @@
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
-glm::vec2 playerPos;
-glm::vec2 playerVelocity;
-
 Game::Game() {
 	isRunning = false;
 	Logger::Log("Game constructor called");
@@ -79,8 +76,6 @@ void Game::Destroy() {
 }
 
 void Game::Setup() {
-	playerPos = glm::vec2(10.0, 20.0);
-	playerVelocity = glm::vec2(200, 100);
 }
 
 void Game::Run() {
@@ -144,9 +139,6 @@ void Game::Update() {
 
 	// Store the current frame time
 	millisecsPreviousFrame = SDL_GetTicks();
-
-	playerPos.x += playerVelocity.x * deltaTime;
-	playerPos.y += playerVelocity.y * deltaTime;
 }
 
 
@@ -156,22 +148,5 @@ void Game::Render() {
 
 	// It's recommended to clear the rederer before redrawing the current frame
 	SDL_RenderClear(renderer);
-
-	SDL_Surface* surface = IMG_Load("./assets/images/tank-tiger-right.png");
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-	// Can free the surface if not needed again
-	SDL_FreeSurface(surface);
-
-	SDL_Rect destRect = {
-		static_cast<int>(playerPos.x),
-		static_cast<int>(playerPos.y),
-		32,
-		32 };
-	//SDL_Rect srcRect = { 288 * frame, 128, 288, 128 };
-	SDL_RenderCopy(renderer, texture, NULL, &destRect);
-
-
-	SDL_DestroyTexture(texture);
-
 	SDL_RenderPresent(renderer);
 }

@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <glm/glm.hpp>
 #include <SDL2/SDL_image.h>
+#include "../ECS/ECS.h"
 #include "../Logger/Logger.h"
 
 const int FPS = 60;
